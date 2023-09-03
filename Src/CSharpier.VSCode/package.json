@@ -56,11 +56,14 @@
         "vscode:prepublish": "npm run build",
         "actualBuild": "webpack --env NODE_ENV=production",
         "build": "rimraf build && npm run actualBuild",
+        "build:proto": "proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=proto/ proto/csharpier.proto",
         "start": "rimraf build && webpack --env NODE_ENV=development --watch",
         "prettier": "prettier ./**/*.{ts,js} --write",
         "vsix": "vsce package"
     },
     "devDependencies": {
+        "@grpc/grpc-js": "^1.9.1",
+        "@grpc/proto-loader": "^0.7.9",
         "@types/glob": "7.1.4",
         "@types/mocha": "9.0.0",
         "@types/node": "14.x",

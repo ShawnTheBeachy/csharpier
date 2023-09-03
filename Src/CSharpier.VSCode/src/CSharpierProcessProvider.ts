@@ -10,6 +10,7 @@ import { CSharpierProcessPipeMultipleFiles } from "./CSharpierProcessPipeMultipl
 import * as fs from "fs";
 import { InstallerService } from "./InstallerService";
 import { CustomPathInstaller } from "./CustomPathInstaller";
+import { CSharpierProcessProto } from "./CSharpierProcessProto";
 
 export class CSharpierProcessProvider implements Disposable {
     warnedForOldVersion = false;
@@ -213,6 +214,9 @@ export class CSharpierProcessProvider implements Disposable {
             const customPath = this.customPathInstaller.getPathForVersion(version);
 
             this.logger.debug(`Adding new version ${version} process for ${directory}`);
+
+            // TODO can we figure out some way to make it easy to test with the local version of csharpier?
+            return new CSharpierProcessProto(this.logger, customPath, directory);
 
             if (semver.lt(version, "0.12.0")) {
                 if (!this.warnedForOldVersion) {
